@@ -7,7 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * REST endpoints for creating and managing courses.
@@ -84,5 +86,33 @@ public class CourseController {
         courseService.deleteCourse(id);
 
         return ResponseEntity.noContent().build();
+    }
+
+    /**
+     * GET /api/courses/stats
+     *
+     * Returns statistics about the courses.
+     */
+    @GetMapping("/stats")
+    public ResponseEntity<Map<String, Object>> getCourseStats() {
+        List<Course> courses = courseService.getAllCourses();
+
+        Map<String, Long> coursesByStatus = new LinkedHashMap<>();
+        coursesByStatus.put("Not Started", 0L);
+        coursesByStatus.put("In Progress", 0L);
+        coursesByStatus.put("Completed", 0L);
+
+        courses.forEach(course -> {
+            String status = String.valueOf(course.getStatus());
+            if (coursesByStatus.containsKey(status)) {
+                coursesByStatus.put(status, coursesByStatus.get(status) + 1);
+            }
+        });
+
+        Map<String, Object> statistics = new LinkedHashMap<>();
+        statistics.put("totalCourses", courses.size());
+        statistics.put("coursesByStatus", coursesByStatus);
+
+        return ResponseEntity.ok(statistics);
     }
 }
