@@ -1,110 +1,150 @@
-CodeCraftHub
+# CodeCraftHub
 CodeCraftHub is a beginner-friendly Java Spring Boot REST API for managing courses. Course data is stored in a local
+```bash
 courses.json
+```
 file instead of a database.
 
 The project demonstrates REST API fundamentals including CRUD operations, JSON request and response bodies, validation, error handling, and file-based persistence using Jackson.
 
-Features
-Create, read, update, and delete courses
-Store course data in
+## Features
+<font size="5">•</font> Create, read, update, and delete courses<br/>
+<font size="5">•</font> Store course data in
+```bash
 courses.json
-Automatically create
+```
+<font size="5">•</font> Automatically create
+```bash
 courses.json
-if it does not exist
-Automatically generate course IDs starting from
+```
+if it does not exist.<br/>
+<font size="5">•</font> Automatically generate course IDs starting from
+```bash
 1
-Automatically generate
+```
+<font size="5">•</font> Automatically generate
+```bash
 created_at
-timestamps
-Validate required fields
-Validate target dates using
+```
+timestamps<br/>
+
+<font size="5">•</font> Validate required fields<br/>
+<font size="5">•</font> Validate target dates using
+```bash
 YYYY-MM-DD
-Restrict course statuses to:
-Not Started
-In Progress
-Completed
-Return helpful JSON error responses
-Use Jackson for JSON processing
-No database required
-No authentication required
-Technologies
-Java 17+
-Spring Boot 3
-Spring Web
-Spring Validation
-Jackson
-Maven
-Project Structure
+```
+<font size="5">•</font> Restrict course statuses to:
+* ```bash
+  Not Started
+  ```
+* ```bash
+  In Progress
+  ```
+* ```bash
+  Completed
+  ```
+<font size="5">•</font> Return helpful JSON error responses<br/>
+<font size="5">•</font> Use Jackson for JSON processing<br/>
+<font size="5">•</font> No database required<br/>
+<font size="5">•</font> No authentication required<br/>
+## Technologies
+<font size="5">•</font> Java 17+<br/>
+<font size="5">•</font> Spring Boot 3<br/>
+<font size="5">•</font> Spring Web<br/>
+<font size="5">•</font> Spring Validation<br/>
+<font size="5">•</font> Jackson<br/>
+<font size="5">•</font> Maven<br/>
+## Project Structure
+```bash
 codecraft-hub/
 ├── courses.json
 ├── pom.xml
 └── src/
     └── main/
-        └── java/
-            └── com/
-                └── codecrafthub/
-                    ├── CodeCraftHubApplication.java
-                    ├── controller/
-                    │   └── CourseController.java
-                    ├── exception/
-                    │   ├── CourseNotFoundException.java
-                    │   ├── DataFileException.java
-                    │   └── GlobalExceptionHandler.java
-                    ├── model/
-                    │   ├── Course.java
-                    │   └── CourseStatus.java
-                    └── service/
-                        └── CourseService.java
-Prerequisites
+        ├── java/
+        │   └── com/
+        │       └── codecrafthub/
+        │           ├── CodeCraftHubApplication.java
+        │           ├── controller/
+        │           │   └── CourseController.java
+        │           ├── exception/
+        │           │   ├── CourseNotFoundException.java
+        │           │   ├── DataFileException.java
+        │           │   └── GlobalExceptionHandler.java
+        │           ├── model/
+        │           │   ├── Course.java
+        │           │   └── CourseStatus.java
+        │           └── service/
+        │               └── CourseService.java
+        └── resources/
+            └── application.properties
+```
+## Prerequisites
 Install the following software before running the project:
 
-Java Development Kit 17 or later
-Maven 3.8 or later
-Git, if cloning the project from a repository
+<font size="5">•</font> Java Development Kit 17 or later<br/>
+<font size="5">•</font> Maven 3.8 or later<br/>
+<font size="5">•</font> Git, if cloning the project from a repository<br/>
+
 Verify Java:
 
+```bash
 java -version
+```
 Expected output should show Java 17 or a newer version.
 
 Verify Maven:
-
+```bash
 mvn -version
-Installation
-1. Clone the project
-git clone https://github.com/your-username/codecraft-hub.git
+```
+## Installation
+### 1. Clone the project
+```bash
+git clone https://github.com/your-username/code_craft_hub.git
+```
 Replace the URL with the actual repository URL.
 
-2. Enter the project directory
-cd codecraft-hub
-3. Build the project
+### 2. Enter the project directory
+```bash
+cd codecrafthub
+```
+### 3. Build the project
+```bash
 mvn clean install
+```
 If the build completes successfully, the project is ready to run.
 
-Running the Application
+### Running the Application
 Start the application with Maven:
-
+```bash
 mvn spring-boot:run
+```
 The API will be available at:
-
+```bash
 http://localhost:8080
+```
 The application creates
+```bash
 courses.json
+```
 automatically in the project’s working directory if the file does not already exist.
 
 The initial file contents are:
-
+```bash
 []
-Running the packaged JAR
+```
+## Running the packaged JAR
 Build the application:
-
+```bash
 mvn clean package
+```
 Run the generated JAR file:
-
+```bash
 java -jar target/codecraft-hub-0.0.1-SNAPSHOT.jar
-Course Data Format
+```
+## Course Data Format
 Each course contains the following JSON fields:
-
+```bash
 {
   "id": 1,
   "name": "Spring Boot REST APIs",
@@ -113,49 +153,50 @@ Each course contains the following JSON fields:
   "status": "Not Started",
   "created_at": "2026-09-17T12:30:45.123Z"
 }
-Field descriptions
-Field	Required in requests	Description
+```
+## Field descriptions
+| Field | Required in requests | Description |
+|-------|----------------------|-------------|
+| <pre><code>id</code></pre> | No | Automatically generated by the application |
+| <pre><code>name</code></pre> | Yes | Course name |
+| <pre><code>description</code></pre> | Yes | Course description |
+| <pre><code>target_date</code></pre> | Yes | Target completion date using <pre><code>YYYY-MM-DD</code></pre> |
+| <pre><code>status</code></pre> | Yes | Must be <pre><code>Not Started</code></pre>,<pre><code>In Progress</code></pre>, or <pre><code>Completed</code></pre> |
+| <pre><code>created_at</code></pre> | No | Automatically generated timestamp |
+
+The 
+```bash
 id
-No	Automatically generated by the application
-name
-Yes	Course name
-description
-Yes	Course description
-target_date
-Yes	Target completion date using
-YYYY-MM-DD
-status
-Yes	Must be
-Not Started
-,
-In Progress
-, or
-Completed
+```
+and 
+```bash
 created_at
-No	Automatically generated timestamp
-The
-id
-and
-created_at
+```
 fields are generated by the server and should not be included when creating or updating a course.
 
-API Documentation
+
+## API Documentation
 Base URL:
-
+```bash
 http://localhost:8080/api/courses
-Create a Course
+```
+### Create a Course
 Creates a new course.
-
+```bash
 POST /api/courses
 Content-Type: application/json
-Request
+```
+### Request
+```bash
 {
   "name": "Spring Boot REST APIs",
   "description": "Learn how to build REST APIs with Spring Boot.",
   "target_date": "2026-12-31",
   "status": "Not Started"
 }
-cURL
+```
+### cURL
+```bash
 curl -X POST http://localhost:8080/api/courses \
   -H "Content-Type: application/json" \
   -d '{
@@ -164,12 +205,14 @@ curl -X POST http://localhost:8080/api/courses \
     "target_date": "2026-12-31",
     "status": "Not Started"
   }'
-Successful response
+```
+### Successful response
 Status:
-
+```bash
 201 Created
+```
 Response:
-
+```bash
 {
   "id": 1,
   "name": "Spring Boot REST APIs",
@@ -178,20 +221,27 @@ Response:
   "status": "Not Started",
   "created_at": "2026-09-17T12:30:45.123Z"
 }
-Get All Courses
+```
+### Get All Courses
 Returns all courses in
+```bash
 courses.json
+```
 .
-
+```bash
 GET /api/courses
-cURL
+```
+### cURL
+```bash
 curl http://localhost:8080/api/courses
-Successful response
+```
+### Successful response
 Status:
-
+```bash
 200 OK
+```
 Response:
-
+```bash
 [
   {
     "id": 1,
@@ -202,24 +252,31 @@ Response:
     "created_at": "2026-09-17T12:30:45.123Z"
   }
 ]
+```
 If there are no courses, the API returns:
-
+```bash
 []
-Get a Specific Course
+```
+### Get a Specific Course
 Returns one course by its ID.
-
+```bash
 GET /api/courses/{id}
+```
 For example:
-
+```bash
 GET /api/courses/1
-cURL
+```
+### cURL
+```bash
 curl http://localhost:8080/api/courses/1
-Successful response
+```
+### Successful response
 Status:
-
+  ```bash
 200 OK
+```
 Response:
-
+```bash
 {
   "id": 1,
   "name": "Spring Boot REST APIs",
@@ -228,36 +285,45 @@ Response:
   "status": "Not Started",
   "created_at": "2026-09-17T12:30:45.123Z"
 }
-Course not found
+```
+### Course not found
 If the course does not exist:
-
+```bash
 GET /api/courses/999
+```
 Response status:
-
+```bash
 404 Not Found
+```
 Response body:
-
+```bash
 {
   "status": 404,
   "error": "Not Found",
   "message": "Course with id 999 was not found"
 }
-Update a Course
+```
+### Update a Course
 Updates the editable fields of an existing course.
-
+```bash
 PUT /api/courses/{id}
 Content-Type: application/json
+```
 For example:
-
+```bash
 PUT /api/courses/1
-Request
+```
+### Request
+```bash
 {
   "name": "Advanced Spring Boot REST APIs",
   "description": "Build production-ready REST APIs using Spring Boot.",
   "target_date": "2027-01-15",
   "status": "In Progress"
 }
-cURL
+```
+### cURL
+```bash
 curl -X PUT http://localhost:8080/api/courses/1 \
   -H "Content-Type: application/json" \
   -d '{
@@ -266,12 +332,14 @@ curl -X PUT http://localhost:8080/api/courses/1 \
     "target_date": "2027-01-15",
     "status": "In Progress"
   }'
-Successful response
+```
+### Successful response
 Status:
-
+```bash
 200 OK
+```
 Response:
-
+```bash
 {
   "id": 1,
   "name": "Advanced Spring Boot REST APIs",
@@ -280,125 +348,155 @@ Response:
   "status": "In Progress",
   "created_at": "2026-09-17T12:30:45.123Z"
 }
+```
 The original
+```bash
 id
+```
 and
+```bash
 created_at
+```
 values are preserved.
 
-Delete a Course
+### Delete a Course
 Deletes a course by its ID.
-
+```bash
 DELETE /api/courses/{id}
+```
 For example:
-
+```bash
 DELETE /api/courses/1
-cURL
+```
+### cURL
+```bash
 curl -X DELETE http://localhost:8080/api/courses/1
-Successful response
+```
+### Successful response
 Status:
-
+```bash
 204 No Content
+```
 There is no response body for a successful deletion.
 
-Course not found
+### Course not found
 If the course does not exist, the API returns:
-
+```bash
 404 Not Found
-Valid Status Values
+```
+### Valid Status Values
 The
+```bash
 status
+```
 field must match one of the following values exactly:
-
+```bash
 Not Started
 In Progress
 Completed
+```
 Valid example:
-
+```bash
 {
   "status": "In Progress"
 }
+```
 Invalid examples:
-
+```bash
 {
   "status": "completed"
 }
+
 {
   "status": "Started"
 }
+
 {
   "status": "NOT_STARTED"
 }
+```
 Status values are case-sensitive.
 
-Validation and Error Responses
-Missing required fields
+## Validation and Error Responses
+### Missing required fields
 Request:
-
+```bash
 {
   "name": "Spring Boot"
 }
+```
 Response:
-
+```bash
 400 Bad Request
+```
 Example response body:
-
+```bash
 {
   "status": 400,
   "error": "Bad Request",
   "message": "description: description is required, targetDate: target_date is required, status: status is required"
 }
-Invalid date format
+```
+### Invalid date format
 Request:
-
+```bash
 {
   "name": "Java Fundamentals",
   "description": "Learn core Java.",
   "target_date": "31-12-2026",
   "status": "Not Started"
 }
+```
 Response:
-
+```bash
 400 Bad Request
+```
 Example response:
-
+```bash
 {
   "status": 400,
   "error": "Bad Request",
   "message": "target_date must use the format YYYY-MM-DD"
 }
-Invalid status
+```
+### Invalid status
 Request:
-
+```bash
 {
   "name": "Java Fundamentals",
   "description": "Learn core Java.",
   "target_date": "2026-12-31",
   "status": "Started"
 }
+```
 Response:
-
+```bash
 400 Bad Request
-Invalid endpoint
+```
+### Invalid endpoint
 Requesting an endpoint that does not exist:
-
+```bash
 GET /api/unknown
+```
 Response:
-
+```bash
 404 Not Found
+```
 Example response:
-
+```bash
 {
   "status": 404,
   "error": "Not Found",
   "message": "API endpoint not found"
 }
-File Storage
+```
+## File Storage
 Course data is stored in:
-
+```bash
 courses.json
+```
 The file contains a JSON array:
-
+```bash
 [
   {
     "id": 1,
@@ -409,86 +507,110 @@ The file contains a JSON array:
     "created_at": "2026-09-17T10:00:00Z"
   }
 ]
+```
 The application reads the entire file when processing a request and writes the updated course list after create, update, or delete operations.
 
 This approach is suitable for a small learning project. It is not intended for high-volume production systems or applications requiring multiple application instances.
 
-Troubleshooting
-Port 8080 is already in use
-Problem
+## Troubleshooting
+### Port 8080 is already in use
+### Problem
 The application fails to start with an error similar to:
-
+```bash
 Web server failed to start. Port 8080 was already in use.
-Solution
+```
+### Solution
 Stop the application currently using port
+```bash
 8080
+```
 , or configure a different port.
 
 Create or edit:
-
+```bash
 src/main/resources/application.properties
-Add:
-
+```
+Add (or replace the existing server.port if it exists):
+```bash
 server.port=8081
+```
 The application will then be available at:
-
+```bash
 http://localhost:8081
-Java version error
-Problem
+```
+### Java version error
+### Problem
 Maven reports that the Java version is unsupported.
 
-Solution
+### Solution
 Check the installed version:
-
+```bash
 java -version
+```
 This project requires Java 17 or later. Install a compatible JDK and make sure
+```bash
 JAVA_HOME
+```
 points to it.
 
-Maven command not found
-Problem
+### Maven command not found
+### Problem
 The terminal reports:
-
+```bash
 mvn: command not found
-Solution
+```
+### Solution
 Install Maven, or use the Maven wrapper if it exists:
 
 Linux or macOS:
-
+```bash
 ./mvnw spring-boot:run
+```
 Windows:
-
+```bash
 mvnw.cmd spring-boot:run
+```
+The file
+```bash
 courses.json
-cannot be created
-Problem
+```
+is created automatically if it does not exist when the application starts.
+### File Read/Write Error
+### Problem
 The application reports a file read or write error.
 
-Possible causes
-The application does not have permission to write to the current directory.
-The directory is read-only.
-Another process is locking the file.
-The disk is full.
-Solutions
-Run the application from a writable directory.
-Check directory permissions.
-Close applications that may have locked
+### Possible causes
+<font size="5">•</font> The application does not have permission to write to the current directory.<br/>
+<font size="5">•</font> The directory is read-only.<br/>
+<font size="5">•</font> Another process is locking the file.<br/>
+<font size="5">•</font> The disk is full.<br/>
+### Solutions
+<font size="5">•</font> Run the application from a writable directory.<br/>
+<font size="5">•</font> Check directory permissions.<br/>
+<font size="5">•</font> Close applications that may have locked<br/>
+```bash
 courses.json
+```
 .
-Check available disk space.
+### Check available disk space.
 Invalid JSON in
+```bash
 courses.json
-Problem
+```
+### Problem
 The application starts or receives a request but reports that it cannot read the data file.
 
-Solution
+### Solution
 Open
+```bash
 courses.json
+```
 and make sure it contains valid JSON. The simplest valid file is:
-
+```bash
 []
+```
 You can also restore the file using a valid course array:
-
+```bash
 [
   {
     "id": 1,
@@ -499,124 +621,178 @@ You can also restore the file using a valid course array:
     "created_at": "2026-09-17T12:00:00Z"
   }
 ]
+```
 Create a backup before manually editing the file.
 
-Course IDs are not starting at 1
+Course IDs are not starting at 
+```bash
+1
+```
 The application generates the next ID based on the largest existing ID in
+```bash
 courses.json
+```
 .
 
 For example, if the file contains course IDs
+```bash
 1
+```
 and
+```bash
 4
+```
 , the next course receives ID
+```bash
 5
+```
 .
 
 If you want to restart IDs from
+```bash
 1
+```
 , back up and replace
+```bash
 courses.json
+```
 with:
-
+```bash
 []
+```
 This should only be done if you are comfortable deleting the existing course data.
 
-Request returns
+### Request returns
+```bash
 400 Bad Request
+```
 Check the following:
 
-The request uses the
+1. The request uses the
+```bash
 Content-Type
+```
 header:
-
+```bash
 Content-Type: application/json
-All required fields are included:
-
+```
+2. All required fields are included:
+```bash
 {
   "name": "Course name",
   "description": "Course description",
   "target_date": "2026-12-31",
   "status": "Not Started"
 }
-The date uses the format:
-
+```
+3. The date uses the format:
+```bash
 YYYY-MM-DD
-The status exactly matches one of:
-
+```
+4. The status exactly matches one of:
+```bash
 Not Started
 In Progress
 Completed
-The JSON syntax is valid.
+```
+5. The JSON syntax is valid.
 
-Request returns
+### Request returns
+```bash
 404 Not Found
+```
 Check that:
 
-The application is running.
-The URL is correct.
-The endpoint begins with
+<font size="5">•</font> The application is running.<br/>
+<font size="5">•</font> The URL is correct.<br/>
+<font size="5">•</font> The endpoint begins with<br/>
+```bash
 /api/courses
-.
-The course ID exists.
-The ID is a number.
+```
+.<br/>
+<font size="5">•</font> The course ID exists.<br/>
+<font size="5">•</font> The ID is a number.<br/>
 Correct example:
-
+```bash
 GET http://localhost:8080/api/courses/1
+```
 Incorrect example:
-
+```bash
 GET http://localhost:8080/api/course/1
-Changes are not visible
+```
+### Changes are not visible
 Make sure you are checking the correct
+```bash
 courses.json
+```
 file. The application creates the file in its current working directory.
 
 You can check the current directory from which the application was started and verify that
+```bash
 courses.json
+```
 is located there.
 
 Also confirm that:
 
-The request returned a successful status.
-The application is connected to the expected project directory.
-No second application instance is running with a different working directory.
-Testing with Postman or Insomnia
+<font size="5">•</font> The request returned a successful status.<br/>
+<font size="5">•</font> The application is connected to the expected project directory.<br/>
+<font size="5">•</font> No second application instance is running with a different working directory.<br/>
+## Testing with Postman or Insomnia
 For
+```bash
 POST
+```
 and
+```bash
 PUT
+```
 requests:
 
-Select the appropriate HTTP method.
+1. Select the appropriate HTTP method.
 
-Use a URL such as:
-
+2. Use a URL such as:
+```bash
 http://localhost:8080/api/courses
-Set the header:
-
+```
+3. Set the header:
+```bash
 Content-Type: application/json
-Select raw JSON as the request body.
+```
+4. Select raw JSON as the request body.
 
-Use valid course data.
+5. Use valid course data.
 
 Example:
-
+```bash
 {
   "name": "REST API Fundamentals",
   "description": "Learn HTTP methods and REST API design.",
   "target_date": "2026-12-15",
   "status": "In Progress"
 }
-Limitations
+```
+## Limitations
 This application intentionally uses a JSON file instead of a database. As a result:
 
-It is best suited for learning and small projects.
-It does not support multiple users.
-It has no authentication or authorization.
-It is not designed for multiple server instances.
-Large numbers of courses may make file operations slower.
-Manual edits to
+<font size="5">•</font> It is best suited for learning and small projects.<br/>
+<font size="5">•</font> It does not support multiple users.<br/>
+<font size="5">•</font> It has no authentication or authorization.<br/>
+<font size="5">•</font> It is not designed for multiple server instances.<br/>
+<font size="5">•</font> Large numbers of courses may make file operations slower.<br/>
+<font size="5">•</font> Manual edits to
+```bash
 courses.json
-must use valid JSON.
-Concurrent external edits to the file may cause data conflicts.
+```
+must use valid JSON.<br/>
+<font size="5">•</font> Concurrent external edits to the file may cause data conflicts.<br/>
+
+## Future Enhancements
+Future improvements may include:<br/>
+
+<font size="5">•</font> Adding a database for persistent storage.<br/>
+<font size="5">•</font> Implementing user authentication and roles.<br/>
+<font size="5">•</font> Adding search, filtering, and sorting capabilities.<br/>
+<font size="5">•</font> Improving error handling and validation.<br/>
+<font size="5">•</font> Creating a more comprehensive user interface.<br/>
+<font size="5">•</font> Adding support for multiple languages or locales.<br/>

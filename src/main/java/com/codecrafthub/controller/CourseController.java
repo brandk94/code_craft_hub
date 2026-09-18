@@ -103,7 +103,7 @@ public class CourseController {
         coursesByStatus.put("Completed", 0L);
 
         courses.forEach(course -> {
-            String status = String.valueOf(course.getStatus());
+            String status = course.getStatus().getValue();
             if (coursesByStatus.containsKey(status)) {
                 coursesByStatus.put(status, coursesByStatus.get(status) + 1);
             }
