@@ -141,11 +141,11 @@
   .btn-success { background: var(--success); color: var(--neutral-900); }
   .btn-success:hover:not(:disabled) { background: var(--success-dark); color: var(--white); }
 
-  .btn-danger { background: var(--danger); color: var(--white); }
-  .btn-danger:hover:not(:disabled) { background: var(--danger-dark); box-shadow: var(--shadow-sm); }
+  .danger { background: var(--danger); color: var(--white); }
+  .danger:hover:not(:disabled) { background: var(--danger-dark); box-shadow: var(--shadow-sm); }
 
-  .btn-ghost { background: var(--neutral-100); color: var(--neutral-700); }
-  .btn-ghost:hover:not(:disabled) { background: var(--neutral-200); }
+  .ghost { background: var(--neutral-100); color: var(--neutral-700); }
+  .ghost:hover:not(:disabled) { background: var(--neutral-200); }
 
   .btn-sm { padding: 0.4rem 0.7rem; font-size: 0.82rem; }
 
@@ -412,7 +412,7 @@
       </form>
     </div>
     <footer>
-      <button class="btn btn-ghost" id="cancelEditBtn">Cancel</button>
+      <button class="btn ghost" id="cancelEditBtn">Cancel</button>
       <button class="btn btn-primary" id="saveEditBtn">Save Changes</button>
     </footer>
   </div>
@@ -639,8 +639,8 @@
           (created ? '<span><strong>Created:</strong> ' + formatDate(course.created_at || course.createdAt) + '</span>' : '') +
         '</div>' +
         '<div class="actions">' +
-          '<button class="btn btn-ghost btn-sm" data-action="edit" data-id="' + id + '">Edit</button>' +
-          '<button class="btn btn-danger btn-sm" data-action="delete" data-id="' + id + '">Remove</button>' +
+          '<button class="btn ghost btn-sm" onclick="handleEdit(\'' + id + '\')">Edit</button>' +
+          '<button class="btn danger btn-sm" onclick="handleDelete(\'' + id + '\', this)">Remove</button>' +
         '</div>';
 
       els.cards.appendChild(card);
@@ -706,14 +706,10 @@
     clearFieldErrors("");
   });
 
-  /* ---------- Edit / Delete (event delegation) ---------- */
-  els.cards.addEventListener("click", function (e) {
-    const btn = e.target.closest("button[data-action]");
-    if (!btn) return;
-    const id = btn.getAttribute("data-id");
-    if (btn.getAttribute("data-action") === "edit") openEditModal(id);
-    else if (btn.getAttribute("data-action") === "delete") deleteCourse(id);
-  });
+  /* ---------- Edit / Delete (inline handlers) ---------- */
+  window.handleEdit = function(id) {
+    openEditModal(id);
+  };
 
   function findCourse(id) {
     return courses.find(function (c) { return String(c.id) === String(id); });
@@ -778,15 +774,13 @@
   });
 
   /* ---------- Delete ---------- */
-  function deleteCourse(id) {
+  window.handleDelete = function(id, btn) {
     const course = findCourse(id);
     if (!course) return;
     if (!confirm('Remove "' + (course.name || "this course") + '"? This cannot be undone.')) return;
 
-    const card = els.cards.querySelector('.card button[data-id="' + CSS.escape(String(id)) + '"]');
-    const delBtn = card ? card.closest(".actions").querySelector('button[data-action="delete"]') : null;
-    const task = delBtn
-      ? withSpinner(delBtn, function () { return apiDelete(id); })
+    const task = btn
+      ? withSpinner(btn, function () { return apiDelete(id); })
       : apiDelete(id);
 
     task.then(function () {
@@ -796,7 +790,7 @@
     }).catch(function (err) {
       toast("Failed to delete course: " + err.message, "error");
     });
-  }
+  };
 
   /* ---------- Init ---------- */
   loadCourses();
