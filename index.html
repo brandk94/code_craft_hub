@@ -472,7 +472,7 @@
 
   /* ---------- API helpers ---------- */
   function handleResponseError(res) {
-    if (res.ok) return null;
+    if (res.ok) return Promise.resolve(null);
     return res.text().then(function (body) {
       let detail = body;
       try {
@@ -507,7 +507,7 @@
   }
 
   function apiUpdate(id, payload) {
-    return fetch(API_BASE.replace(/\/courses$/, "/course/") + encodeURIComponent(id), {
+    return fetch(API_BASE + "/" + encodeURIComponent(id), {
       method: "PUT",
       headers: { "Content-Type": "application/json", "Accept": "application/json" },
       body: JSON.stringify(payload),
@@ -520,7 +520,7 @@
   }
 
   function apiDelete(id) {
-    return fetch(API_BASE.replace(/\/courses$/, "/course/") + encodeURIComponent(id), {
+    return fetch(API_BASE + "/" + encodeURIComponent(id), {
       method: "DELETE",
       headers: { "Accept": "application/json" },
     }).then(function (res) {
@@ -652,10 +652,12 @@
     renderLoading();
     return apiGet()
       .then(function (data) {
+        console.log("DATA: " + JSON.stringify(data));
         courses = Array.isArray(data) ? data : (data && data.courses ? data.courses : []);
         renderCourses();
       })
       .catch(function (err) {
+        console.log(courses);
         courses = [];
         renderEmpty("Could not load courses.");
         toast("Failed to load courses: " + err.message, "error");
